@@ -57,6 +57,10 @@ services:
       - GF_LOG_LEVEL=info
       - GF_FEATURE_TOGGLES_ENABLE=traceQLStreaming metricsSummary
       - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=doris-app
+      # Anonymous access (read-only)
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_USERS_HOME_PAGE=/a/doris-app/discover
       # Doris connection for datasource provisioning
       - DORIS_FE_MYSQL_ENDPOINT=${DORIS_FE_MYSQL_ENDPOINT:-host.docker.internal:9030}
       - DORIS_USERNAME=${DORIS_USERNAME:-root}
@@ -68,6 +72,7 @@ services:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning/datasources/datasources-without-doris.yaml:/etc/grafana/provisioning/datasources/datasources.yaml:ro
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./grafana/provisioning/plugins:/etc/grafana/provisioning/plugins:ro
       - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
       - ./grafana/plugins/doris-app:/var/lib/grafana/plugins/doris-app:ro
     restart: unless-stopped

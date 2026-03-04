@@ -1506,7 +1506,6 @@
   "tags": [
     "kubernetes",
     "otel",
-    "doris",
     "kubelet"
   ],
   "templating": {
@@ -1601,7 +1600,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "K8s Observability - Doris",
+  "title": "K8s Observability",
   "uid": "k8s-kubelet-doris",
   "version": 1,
   "weekStart": ""

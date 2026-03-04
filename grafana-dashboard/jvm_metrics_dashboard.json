@@ -360,7 +360,7 @@
     }
   ],
   "schemaVersion": 39,
-  "tags": ["jvm", "opentelemetry", "doris"],
+  "tags": ["jvm", "opentelemetry"],
   "templating": {
     "list": [
       {

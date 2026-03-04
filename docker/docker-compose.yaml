@@ -39,6 +39,8 @@ services:
     hostname: otel-collector
     container_name: otel-collector
     command: ["--config=/etc/otelcol/otel-collector-config.yaml"]
+    environment:
+      - DORIS_TIMEZONE=${DORIS_TIMEZONE:-UTC}
     volumes:
       - ./otel-collector-config/otel-collector-config.yaml:/etc/otelcol/otel-collector-config.yaml:ro
     ports:
@@ -68,12 +70,17 @@ services:
       - GF_LOG_LEVEL=info
       - GF_FEATURE_TOGGLES_ENABLE=traceQLStreaming metricsSummary
       - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=doris-app
+      # Anonymous access (read-only)
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_USERS_HOME_PAGE=/a/doris-app/discover
     ports:
       - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning/datasources/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml:ro
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./grafana/provisioning/plugins:/etc/grafana/provisioning/plugins:ro
       - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
       - ./grafana/plugins/doris-app:/var/lib/grafana/plugins/doris-app:ro
     depends_on:

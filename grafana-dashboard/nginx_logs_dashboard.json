@@ -214,7 +214,7 @@
     }
   ],
   "schemaVersion": 39,
-  "tags": ["nginx", "logs", "opentelemetry", "doris"],
+  "tags": ["nginx", "logs", "opentelemetry"],
   "templating": {
     "list": [
       {
